@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\post\PostConroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post("register",[AuthController::class,'register']);
-Route::post("login",[AuthController::class,'login']);
+Route::middleware('auth.jwt')->get('/user', function () {
+    Route::post('posts', [PostConroller::class, 'store']);
+});
+Route::post("register", [AuthController::class, 'register']);
+Route::post("login", [AuthController::class, 'login']);

@@ -20,7 +20,7 @@ class AuthController extends Controller
             'user_name' => ['required', 'string', Rule::unique('users', 'user_name')],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:6', 'max:18'],
-            'profile_image' => ['image', 'mimes:jpeg,png,jpg,gif,svg',]
+            'profile_image' => ['image', 'mimes:jpeg,png,jpg,gif,svg']
         ]);
         $user = new User();
         $user->name = $request->name;
