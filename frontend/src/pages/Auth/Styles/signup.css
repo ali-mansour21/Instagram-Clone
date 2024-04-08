@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 20px 30px 20px 30px;
+  margin-top: 15px;
+  width: 350px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container img {
+  width: 170px;
+  margin: auto;
+  height: 70px;
+}
+.container h3 {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 18px;
+  text-align: center;
+}
+.container button {
+  padding: 7px 12px;
+  margin-bottom: 7px;
+  width: 100%;
+  margin-top: 7px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 149, 246);
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+.container button:hover {
+  cursor: pointer;
+  background-color: #0064e0;
+}
+.container .line-2 {
+  width: 100%;
+  height: 1px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.container .line-2::before {
+  content: "OR";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  z-index: 99;
+  color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+}
+.container .form-container {
+  margin-top: 15px;
+  margin: auto;
+}
+.container .form-container form input {
+  padding: 7px 12px;
+  width: 100%;
+  margin-bottom: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  outline: none;
+  border-radius: 2px;
+  background-color: rgba(250, 250, 250, 1);
+}
+.container .form-container form input::placeholder {
+  padding: 14px 0px 0px 0px;
+}
+.container .form-container form button {
+  padding: 7px 12px;
+  margin-bottom: 7px;
+  width: 100%;
+  margin-top: 7px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 149, 246);
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+.container .form-container form button:hover {
+  cursor: pointer;
+  background-color: #0064e0;
+}
+.container .info {
+  margin: 25px auto;
+  text-align: center;
+}
+.container .info p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.signup {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 20px 30px 20px 30px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+.signup span {
+  color: #0064e0;
+}
+.signup span:hover {
+  cursor: pointer;
+}
