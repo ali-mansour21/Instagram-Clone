@@ -1,0 +1,197 @@
+.page {
+  display: flex;
+}
+.main-page {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 100px;
+}
+.content {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content .story-slider {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  border-radius: 50%;
+  text-align: center;
+}
+.content .story-slider .box {
+  border-radius: 50%;
+}
+.content .story-slider img {
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 0 2px #fd5c62, 0 0 0 2px #ff9642;
+  border-radius: 50%;
+}
+.content .story-slider .box h4 {
+  font-weight: normal;
+}
+.posts {
+  margin-top: 20px;
+}
+.posts .post {
+  width: 470px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.posts .post .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.posts .post .header > div {
+  display: flex;
+  gap: 10px;
+}
+.posts .post .header img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.posts .post .header .info {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.posts .post .header .info h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.posts .post .header .info p {
+  align-content: center;
+  margin-top: 5px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.posts .post .post_image img {
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+  max-width: 100%;
+}
+.posts .post .header .dots svg {
+  width: 20px;
+  height: 20px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.posts .post .actions {
+  margin-top: 15px;
+}
+.posts .post .actions svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.posts .post .actions svg:hover {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.posts .post .actions > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.posts .post .actions > div > div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.posts .post .actions > div > div > p {
+  margin-top: 5px;
+  font-weight: 700;
+}
+.posts .post .actions .comments {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+}
+.posts .post .actions .comments p {
+  color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.posts .post .actions .comments .comment {
+  color: #000;
+}
+.posts .post .actions .comments .comment span {
+  font-weight: 700;
+}
+.posts .post .actions .comments .input-field {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.posts .post .actions .comments .input-field input {
+  width: 100%;
+  margin-top: 5px;
+  border: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #fff;
+}
+.posts .post .actions .comments input:focus {
+  outline: none;
+  background-color: #fff;
+}
+.posts .post .actions .comments .input-field button {
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: #0095f6;
+  background-color: transparent;
+}
+.suggested-users {
+  margin-top: 30px;
+}
+.suggested-users .profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.suggested-users .profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.suggested-users .suggested {
+  margin-top: 20px;
+}
+
+.suggested-users .suggested h5 {
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.5);
+}
+.suggested-users .suggested .profile {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.suggested-users .suggested .profile > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.suggested-users .suggested .profile .follow button {
+  color: #0095f6;
+  border: none;
+  margin-left: 20px;
+  font-size: 14px;
+  background-color: transparent;
+}
+.suggested-users .suggested .profile .follow button:hover {
+  cursor: pointer;
+}

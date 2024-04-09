@@ -3,10 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
+.main-section {
   height: 100vh;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  place-content: center;
 }
 .container {
   border: 1px solid rgba(0, 0, 0, 0.4);

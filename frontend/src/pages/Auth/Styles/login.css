@@ -3,10 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
+.main {
   height: 100vh;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  place-content: center;
 }
 .login-container {
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -96,6 +97,8 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.4);
   padding: 20px 30px 20px 30px;
   margin-top: 15px;
+  width: 350px;
+
   display: flex;
   justify-content: center;
 }
