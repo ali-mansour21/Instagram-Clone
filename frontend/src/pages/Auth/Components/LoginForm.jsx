@@ -1,27 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/login.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/Instagram_logo.png";
+import sendRequest from "../../../core/tools/userRequest.js";
+import { requestMethods } from "../../../core/requests/requestMethod.js";
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [loginCredentials, setLoginCredentials] = useState({
+    password: "",
+    email: "",
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendRequest(requestMethods.POST, "login", loginCredentials).then(
+      (response) => {
+        console.log(response);
+        if (response.data.status === "success") {
+          localStorage.setItem("token", response.data.authorization.token);
+          navigate("/home");
+        }
+      }
+    );
+  };
   return (
     <>
       <div className="main">
         <div className="login-container">
           <img srcSet={logo} alt="" />
           <div className="form-container">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div>
                 <input
+                  name="email"
                   type="text"
-                  placeholder="Phone number, username, or email"
+                  onChange={(e) => {
+                    setLoginCredentials({
+                      ...loginCredentials,
+                      email: e.target.value,
+                    });
+                  }}
+                  placeholder="username, or email"
                 />
               </div>
               <div>
-                <input type="password" placeholder="Passowrd" />
+                <input
+                  type="password"
+                  onChange={(e) => {
+                    setLoginCredentials({
+                      ...loginCredentials,
+                      password: e.target.value,
+                    });
+                  }}
+                  placeholder="Passowrd"
+                />
               </div>
               <div>
-                <button>Log in</button>
+                <button type="submit">Log in</button>
               </div>
             </form>
             <div className="line"></div>

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/donut.jpeg";
+import logo from "../../../assets/donut.jpeg";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Post = () => {

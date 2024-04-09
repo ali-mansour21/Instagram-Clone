@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/donut.jpeg";
+import logo from "../../../assets/donut.jpeg";
 
 const Slider = () => {
   return (

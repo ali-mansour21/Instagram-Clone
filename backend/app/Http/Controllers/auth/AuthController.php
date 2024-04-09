@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -48,21 +49,31 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
+        // Validate the request
         $request->validate([
-            'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials);
-        if (!$token) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
+        // Determine if the user provided an email or a username
+        if ($request->has('email')) {
+            $field = 'email';
+        } elseif ($request->has('user_name')) {
+            $field = 'user_name';
+        } else {
+            throw ValidationException::withMessages([
+                'login_field' => ['Please provide email or username'],
+            ]);
         }
-
+        $credentials = [
+            $field => $request->input($field),
+            'password' => $request->input('password'),
+        ];
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['status' => 'failed', 'message' => 'Incorrect  provided email or username ']);
+        }
         $user = Auth::user();
+        $token = Auth::login($user);
+
         return response()->json([
             'status' => 'success',
             'user' => $user,
