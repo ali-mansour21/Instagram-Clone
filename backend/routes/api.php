@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth.jwt')->get('/user', function () {
+Route::middleware('auth:jwt')->group(function () {
     Route::post('posts', [PostConroller::class, 'store']);
-    Route::get('feed', [FeedController::class, 'index']);
     Route::post('posts/{id}/like', [LikedController::class, 'store']);
     Route::post('posts/{id}/comment', [CommentController::class, 'store']);
 });
+Route::get('feed', [FeedController::class, 'index'])->name('feed');
 Route::post("register", [AuthController::class, 'register']);
 Route::post("login", [AuthController::class, 'login']);

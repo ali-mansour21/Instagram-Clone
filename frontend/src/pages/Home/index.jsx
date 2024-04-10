@@ -1,7 +1,6 @@
 import React from "react";
 import SideBar from "./Components/SideBar";
 import "./Styles/index.css";
-import logo from "../../assets/donut.jpeg";
 import Slider from "./Components/Slider";
 import Post from "./Components/Post";
 import SuggestedUser from "./Components/SuggestedUser";

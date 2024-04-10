@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styles/signup.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/Instagram_logo.png";
+import sendRequest from "../../../core/tools/userRequest.js";
+import { requestMethods } from "../../../core/requests/requestMethod.js";
 const SignupForm = () => {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    user_name: "",
+  });
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    sendRequest(requestMethods.POST, "register", userData).then((response) => {
+      if (response.data.status === "success") {
+        localStorage.setItem("token", response.data.authorization.token);
+        navigate("/home");
+      }
+    });
+  };
   return (
     <>
       <>
@@ -14,21 +31,45 @@ const SignupForm = () => {
             <button>Log in with Facebook</button>
             <div className="line-2"></div>
             <div className="form-container">
-              <form>
+              <form onSubmit={handleAddUser}>
                 <div>
-                  <input type="text" placeholder=" Email" />
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setUserData({ ...userData, email: e.target.value });
+                    }}
+                    placeholder=" Email"
+                  />
                 </div>
                 <div>
-                  <input type="text" placeholder="Full name" />
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setUserData({ ...userData, name: e.target.value });
+                    }}
+                    placeholder="Full name"
+                  />
                 </div>
                 <div>
-                  <input type="text" placeholder="Username" />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    onChange={(e) => {
+                      setUserData({ ...userData, user_name: e.target.value });
+                    }}
+                  />
                 </div>
                 <div>
-                  <input type="password" placeholder="Passowrd" />
+                  <input
+                    type="password"
+                    placeholder="Passowrd"
+                    onChange={(e) => {
+                      setUserData({ ...userData, password: e.target.value });
+                    }}
+                  />
                 </div>
                 <div>
-                  <button>Sign up</button>
+                  <button type="submit">Sign up</button>
                 </div>
               </form>
               <div className="info">
@@ -45,7 +86,7 @@ const SignupForm = () => {
           </div>
           <div className="signup">
             <p>
-              Have an account?{" "}
+              Have an account?
               <span
                 onClick={() => {
                   navigate("/");

@@ -67,7 +67,7 @@ const LoginForm = () => {
         </div>
         <div className="signup">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?
             <span
               onClick={(e) => {
                 e.preventDefault();
