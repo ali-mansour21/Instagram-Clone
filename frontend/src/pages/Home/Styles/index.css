@@ -195,3 +195,7 @@
 .suggested-users .suggested .profile .follow button:hover {
   cursor: pointer;
 }
+.red-fill {
+  color: red;
+  fill: red;
+}

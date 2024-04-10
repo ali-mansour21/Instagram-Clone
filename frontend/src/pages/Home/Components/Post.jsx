@@ -1,16 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../../assets/donut.jpeg";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Post = () => {
+import defaultProfileImage from "../../../assets/empty_profile.jpeg";
+import sendAuthRequest from "../../../core/tools/authRequest";
+import { requestMethods } from "../../../core/requests/requestMethod";
+const Post = ({ post, reloadData }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [comment, setComment] = useState({
+    content: "",
+  });
+  console.log(post);
+  function calculateElapsedTime(postDate) {
+    const currentDate = new Date();
+    const elapsedTime = currentDate - new Date(postDate);
+
+    const seconds = Math.floor(elapsedTime / 1000);
+
+    if (seconds < 60) {
+      return `${seconds}s`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes}m`;
+    } else if (seconds < 86400) {
+      const hours = Math.floor(seconds / 3600);
+      return `${hours}h`;
+    } else {
+      const days = Math.floor(seconds / 86400);
+      return `${days}d`;
+    }
+  }
+  const handleCreateComment = () => {
+    sendAuthRequest(
+      requestMethods.POST,
+      `posts/${post.id}/comment`,
+      comment
+    ).then((response) => {
+      if (response.data.status === "success") {
+        reloadData();
+        setComment({
+          content: "",
+        });
+      }
+    });
+  };
+  const handleLikePost = () => {
+    sendAuthRequest(requestMethods.POST, `posts/${post.id}/like`).then(
+      (response) => {
+        if (response.data.status === "success") {
+          setIsLiked(!isLiked);
+          reloadData();
+        }
+      }
+    );
+  };
   return (
     <div className="post">
       <div className="header">
         <div>
-          <img srcSet={logo} alt="" />
+          {post.user.profile_image ? (
+            <img srcSet={post.user.profile_image} alt="" />
+          ) : (
+            <img srcSet={defaultProfileImage} alt="Default Profile" />
+          )}
           <div className="info">
-            <h3>name</h3>
-            <p>12h</p>
+            <h3>{post.user.name}</h3>
+            <p>{calculateElapsedTime(post.created_at)}</p>
           </div>
         </div>
         <div className="dots">
@@ -18,7 +73,10 @@ const Post = () => {
         </div>
       </div>
       <div className="post_image">
-        <img srcSet={logo} alt="post_image" />
+        <img
+          src={`http://127.0.0.1:8000/storage/${post.post_image}`}
+          alt="post_image"
+        />
       </div>
       <div className="actions">
         <div>
@@ -30,7 +88,10 @@ const Post = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className={`w-6 h-6 ${isLiked ? "red-fill" : ""}`}
+                onClick={() => {
+                  handleLikePost();
+                }}
               >
                 <path
                   strokeLinecap="round"
@@ -67,8 +128,10 @@ const Post = () => {
                 />
               </svg>
             </div>
-            <p>100 likes</p>
-            <p>name: caption</p>
+            <p>{post.likes?.length} likes</p>
+            <p>
+              {post.user.name}: {post.caption}
+            </p>
           </div>
           <div>
             <svg
@@ -88,13 +151,28 @@ const Post = () => {
           </div>
         </div>
         <div className="comments">
-          <p>View all number comments</p>
-          <p className="comment">
-            <span>name</span> comment
-          </p>
+          <p>View all {post.comments?.length} comments</p>
+          {post.comments?.map((comment, index) => (
+            <p key={index} className="comment">
+              <span>{comment.user.name}</span>: {comment.content}
+            </p>
+          ))}
           <div className="input-field">
-            <input type="text" placeholder="Add  a comment..." />
-            <button>Post</button>
+            <input
+              type="text"
+              onChange={(e) => {
+                setComment({ ...comment, content: e.target.value });
+              }}
+              placeholder="Add  a comment..."
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleCreateComment();
+              }}
+            >
+              Post
+            </button>
           </div>
         </div>
       </div>

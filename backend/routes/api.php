@@ -5,7 +5,6 @@ use App\Http\Controllers\post\PostConroller;
 use App\Http\Controllers\user\CommentController;
 use App\Http\Controllers\user\FeedController;
 use App\Http\Controllers\user\LikedController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:jwt')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::post('posts', [PostConroller::class, 'store']);
+    Route::get('feed', [FeedController::class, 'index'])->name('feed');
     Route::post('posts/{id}/like', [LikedController::class, 'store']);
     Route::post('posts/{id}/comment', [CommentController::class, 'store']);
 });
-Route::get('feed', [FeedController::class, 'index'])->name('feed');
 Route::post("register", [AuthController::class, 'register']);
 Route::post("login", [AuthController::class, 'login']);

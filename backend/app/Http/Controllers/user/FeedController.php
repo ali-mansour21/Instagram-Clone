@@ -13,7 +13,7 @@ class FeedController extends Controller
         $user = auth()->user();
         $followedUserId = $user->followings->pluck('id');
 
-        $posts = Post::whereIn('user_id', $followedUserId)->get();
+        $posts = Post::with('user', 'comments', 'comments.user', 'likes')->whereIn('user_id', $followedUserId)->get();
         return response()->json(['status' => 'success', 'data' => $posts]);
     }
 }

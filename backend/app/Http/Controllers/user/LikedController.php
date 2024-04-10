@@ -20,6 +20,7 @@ class LikedController extends Controller
         } else {
             $like = new Like();
             $like->user_id = $user_id;
+            $like->number++;
             $like->post_id = $post_id;
             $like->save();
         }

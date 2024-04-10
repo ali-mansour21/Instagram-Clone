@@ -13,7 +13,7 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 
-const SideBar = () => {
+const SideBar = ({ openPopUp }) => {
   return (
     <div className="sidebar">
       <img srcSet={logo} alt="Logo" />
@@ -43,7 +43,7 @@ const SideBar = () => {
             <FontAwesomeIcon icon={faHeart} />
             Notifications
           </li>
-          <li>
+          <li onClick={openPopUp}>
             <FontAwesomeIcon icon={faSquarePlus} />
             Create
           </li>
