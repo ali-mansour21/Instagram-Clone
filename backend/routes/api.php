@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::post('posts', [PostConroller::class, 'store']);
     Route::get('feed', [FeedController::class, 'index'])->name('feed');
+    Route::get('recommendations', [FeedController::class, 'getRecommendations']);
     Route::post('posts/{id}/like', [LikedController::class, 'store']);
     Route::post('posts/{id}/comment', [CommentController::class, 'store']);
 });

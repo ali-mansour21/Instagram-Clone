@@ -12,6 +12,9 @@ import { requestMethods } from "../../core/requests/requestMethod";
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [postsData, setPostsData] = useState([]);
+  const [followingUsers, setFollowingUsers] = useState([]);
+  const [reccommendedUsers, setReccommendedUsers] = useState([]);
+  const [activeUser, setActiveUser] = useState();
   const [postCredentials, setPostCredentials] = useState({
     caption: "",
     post_image: null, // Changed to null
@@ -66,21 +69,28 @@ const Home = () => {
 
   const getFeedPost = () => {
     sendAuthRequest(requestMethods.GET, "feed").then((response) => {
-      console.log(response.data.data);
-      setPostsData(response.data.data);
+      setPostsData(response.data.data.posts);
+      setFollowingUsers(response.data.data.followingUsers);
     });
   };
-
+  const getRecommendedUsers = () => {
+    sendAuthRequest(requestMethods.GET, "recommendations").then((response) => {
+      console.log(response.data.data.followings);
+      setReccommendedUsers(response.data.data.followings);
+      setActiveUser(response.data.data.user);
+    });
+  };
   useEffect(() => {
     getFeedPost();
+    getRecommendedUsers();
   }, []);
 
   return (
     <div className="page">
-      <SideBar openPopUp={openPopup} />
+      <SideBar openPopUp={openPopup} user={activeUser} />
       <div className="main-page">
         <div className="content">
-          <Slider />
+          <Slider users={followingUsers} />
           <div className="posts">
             {postsData?.map((post) => {
               return (
@@ -89,7 +99,10 @@ const Home = () => {
             })}
           </div>
         </div>
-        <SuggestedUser />
+        <SuggestedUser
+          reccommendedUsers={reccommendedUsers}
+          user={activeUser}
+        />
       </div>
       {showPopup && (
         <PopUp

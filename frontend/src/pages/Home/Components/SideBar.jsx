@@ -12,8 +12,9 @@ import {
   faPlay,
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
+import defaultProfileImage from "../../../assets/empty_profile.jpeg";
 
-const SideBar = ({ openPopUp }) => {
+const SideBar = ({ openPopUp, user }) => {
   return (
     <div className="sidebar">
       <img srcSet={logo} alt="Logo" />
@@ -47,7 +48,18 @@ const SideBar = ({ openPopUp }) => {
             <FontAwesomeIcon icon={faSquarePlus} />
             Create
           </li>
-          <li>Profile</li>
+          <li>
+            {user?.profile_image ? (
+              <img srcSet={user.profile_image} className="profile" alt="" />
+            ) : (
+              <img
+                className="profile"
+                srcSet={defaultProfileImage}
+                alt="Default Profile"
+              />
+            )}
+            Profile
+          </li>
         </ul>
       </div>
       <div className="footer">

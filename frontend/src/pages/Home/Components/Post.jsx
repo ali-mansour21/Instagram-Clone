@@ -10,7 +10,6 @@ const Post = ({ post, reloadData }) => {
   const [comment, setComment] = useState({
     content: "",
   });
-  console.log(post);
   function calculateElapsedTime(postDate) {
     const currentDate = new Date();
     const elapsedTime = currentDate - new Date(postDate);

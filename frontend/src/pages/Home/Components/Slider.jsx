@@ -1,45 +1,22 @@
 import React from "react";
 import logo from "../../../assets/donut.jpeg";
+import defaultProfileImage from "../../../assets/empty_profile.jpeg";
 
-const Slider = () => {
+const Slider = ({ users }) => {
   return (
     <div className="story-slider">
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
-      <div className="box">
-        <img srcSet={logo} alt="" />
-        <h4>name</h4>
-      </div>
+      {users.map((user, index) => {
+        return (
+          <div className="box" key={index}>
+            {user.profile_image ? (
+              <img srcSet={user.profile_image} alt="" />
+            ) : (
+              <img srcSet={defaultProfileImage} alt="Default Profile" />
+            )}
+            <h4>{user.name}</h4>
+          </div>
+        );
+      })}
     </div>
   );
 };
