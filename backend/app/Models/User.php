@@ -47,6 +47,43 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+    public function establishRelationshipsByDepth()
+    {
+        $potentialMatches = [];
+
+        // Get the users that the current user follows
+        $followedUsers = $this->followings()->get();
+
+        // Iterate over each followed user
+        foreach ($followedUsers as $followedUser) {
+            // Get the users that the followed user follows (depth of 2)
+            $secondLevelFollowers = $followedUser->followings()->get();
+
+            // Iterate over each user in the second level of following
+            foreach ($secondLevelFollowers as $secondLevelFollower) {
+                // Skip if the second level follower is the current user
+                if ($secondLevelFollower->id === $this->id) {
+                    continue;
+                }
+
+                // Establish a relationship between the current user and the second level follower
+                // Only if they are not already following each other directly
+                if (!$this->followings()->where('following_id', $secondLevelFollower->id)->exists()) {
+                    // You can define the type of relationship or any additional logic here
+                    $potentialMatches[] = [
+                        'recommended_users' => $secondLevelFollower
+                    ];
+                }
+            }
+        }
+
+        // Return the potential relationships
+        return $potentialMatches;
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

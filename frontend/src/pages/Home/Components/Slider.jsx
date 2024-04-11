@@ -1,19 +1,19 @@
 import React from "react";
-import logo from "../../../assets/donut.jpeg";
+
 import defaultProfileImage from "../../../assets/empty_profile.jpeg";
 
 const Slider = ({ users }) => {
   return (
     <div className="story-slider">
-      {users.map((user, index) => {
+      {users?.map((user, index) => {
         return (
           <div className="box" key={index}>
-            {user.profile_image ? (
-              <img srcSet={user.profile_image} alt="" />
+            {user?.profile_image ? (
+              <img srcSet={user?.profile_image} alt="" />
             ) : (
               <img srcSet={defaultProfileImage} alt="Default Profile" />
             )}
-            <h4>{user.name}</h4>
+            <h4>{user?.name}</h4>
           </div>
         );
       })}

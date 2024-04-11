@@ -15,9 +15,10 @@ const Home = () => {
   const [followingUsers, setFollowingUsers] = useState([]);
   const [reccommendedUsers, setReccommendedUsers] = useState([]);
   const [activeUser, setActiveUser] = useState();
+  const [followingIds, setFollowingIds] = useState([]);
   const [postCredentials, setPostCredentials] = useState({
     caption: "",
-    post_image: null, // Changed to null
+    post_image: null,
   });
 
   const openPopup = () => {
@@ -75,10 +76,24 @@ const Home = () => {
   };
   const getRecommendedUsers = () => {
     sendAuthRequest(requestMethods.GET, "recommendations").then((response) => {
-      console.log(response.data.data.followings);
-      setReccommendedUsers(response.data.data.followings);
+      console.log(response.data.data.recommendations);
+      setReccommendedUsers(response.data.data.recommendations);
       setActiveUser(response.data.data.user);
     });
+  };
+  const handleFollowUser = (id) => {
+    console.log(id);
+    sendAuthRequest(requestMethods.POST, `follow/${id}`)
+      .then((response) => {
+        if (response.data.status === "success") {
+          console.log(response);
+          setFollowingIds((prevId) => [...prevId, id]);
+          console.log(followingIds);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   useEffect(() => {
     getFeedPost();
@@ -102,6 +117,8 @@ const Home = () => {
         <SuggestedUser
           reccommendedUsers={reccommendedUsers}
           user={activeUser}
+          followingIds={followingIds}
+          getUserId={handleFollowUser}
         />
       </div>
       {showPopup && (
