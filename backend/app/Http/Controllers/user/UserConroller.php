@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,22 @@ use Illuminate\Support\Str;
 
 class UserConroller extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $nbOfFollower = $user->followers()->count();
+        $nbOfFollowing = $user->followings()->count();
+        $posts = Post::where('user_id', $user->id)->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'user' => $user,
+                'posts' => $posts,
+                'nbOfFollower' => $nbOfFollower,
+                'nbOfFollowing' => $nbOfFollowing
+            ]
+        ]);
+    }
     public function update($id, Request $request)
     {
         $user = User::findOrFail($id);

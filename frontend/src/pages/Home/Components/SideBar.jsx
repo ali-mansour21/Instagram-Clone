@@ -13,14 +13,19 @@ import {
   faSquarePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import defaultProfileImage from "../../../assets/empty_profile.jpeg";
-
+import { useNavigate } from "react-router-dom";
 const SideBar = ({ openPopUp, user }) => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <img srcSet={logo} alt="Logo" />
       <div className="menu">
         <ul>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
             <FontAwesomeIcon icon={faHouse} />
             Home
           </li>
@@ -48,7 +53,11 @@ const SideBar = ({ openPopUp, user }) => {
             <FontAwesomeIcon icon={faSquarePlus} />
             Create
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
             {user?.profile_image ? (
               <img srcSet={user.profile_image} className="profile" alt="" />
             ) : (

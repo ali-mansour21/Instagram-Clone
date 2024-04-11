@@ -1,0 +1,46 @@
+.page {
+  display: flex;
+}
+.profile-content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.profile-content .profile-container {
+  display: flex;
+  gap: 60px;
+}
+.profile-content .profile-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+.profile-content .profile-container .info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profile-content .profile-container .info h2 {
+  font-weight: normal;
+}
+.profile-content .profile-container .info button {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  color: #000;
+  transition: all 0.2s ease-in-out;
+  font-weight: 550;
+}
+.profile-content .profile-container .info button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.profile-content .profile-container .info .actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.profile-content .profile-container .info .stats {
+  display: flex;
+  gap: 20px;
+}
