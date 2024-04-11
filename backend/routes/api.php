@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('posts', [PostConroller::class, 'store']);
     Route::get('feed', [FeedController::class, 'index'])->name('feed');
     Route::get('profile', [UserConroller::class, 'index']);
+    Route::put('profile/{id}', [UserConroller::class, 'update']);
     Route::post('follow/{id}', [FeedController::class, 'followUser']);
     Route::get('recommendations', [FeedController::class, 'getRecommendations']);
     Route::post('posts/{id}/like', [LikedController::class, 'store']);

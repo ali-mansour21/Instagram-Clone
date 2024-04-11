@@ -58,7 +58,10 @@ const Post = ({ post, reloadData }) => {
       <div className="header">
         <div>
           {post.user.profile_image ? (
-            <img srcSet={post.user.profile_image} alt="" />
+            <img
+              srcSet={`http://127.0.0.1:8000/storage/${post.user.profile_image}`}
+              alt=""
+            />
           ) : (
             <img srcSet={defaultProfileImage} alt="Default Profile" />
           )}

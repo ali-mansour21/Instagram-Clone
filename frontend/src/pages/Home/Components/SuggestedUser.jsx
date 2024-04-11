@@ -12,7 +12,10 @@ const SuggestedUser = ({
     <div className="suggested-users">
       <div className="profile">
         {user?.profile_image ? (
-          <img srcSet={user.profile_image} alt="" />
+          <img
+            src={`http://127.0.0.1:8000/storage/${user.profile_image}`}
+            alt=""
+          />
         ) : (
           <img srcSet={defaultProfileImage} alt="Default Profile" />
         )}

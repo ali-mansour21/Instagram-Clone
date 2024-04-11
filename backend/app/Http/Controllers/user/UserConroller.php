@@ -33,21 +33,43 @@ class UserConroller extends Controller
     {
         $user = User::findOrFail($id);
         $data = $request->validate([
-            'name' => ['string', 'max:50'],
-            'user_name' => ['string', Rule::unique('users', 'user_name')->ignore($id)],
-            'email' => ['string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($id)],
-            'password' => ['string', 'min:6', 'max:18'],
-            'profile_image' => ['image', 'mimes:jpeg,png,jpg,gif,svg']
+            'bio' => ['string', 'required'],
+            'profile_image' => ['string']
         ]);
-        $user->name = $request->name;
-        $user->user_name = $request->user_name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+
         if ($request->has('profile_image')) {
-            $image_name = Str::random(32) . "." . $request->profile_image->getClientOriginalExtension();
-            Storage::disk('public')->put($image_name, file_get_contents($request->profile_image));
-            $user->profile_image = $image_name;
+            $imageData = $data['profile_image'];
+
+
+            if (preg_match('/^data:(image\/[a-z]+);base64,/', $imageData, $matches)) {
+                $mimeType = $matches[1];
+
+
+                $imageData = str_replace($matches[0], '', $imageData);
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'Invalid image data'], 400);
+            }
+
+            $imageData = str_replace(' ', '+', $imageData);
+
+            $imageData = base64_decode($imageData);
+
+
+            $extensions = [
+                'image/jpeg' => 'jpg',
+                'image/png' => 'png',
+                'image/gif' => 'gif',
+
+            ];
+
+            $fileExtension = $extensions[$mimeType] ?? 'jpg';
+
+            $imageName = Str::random(32) . '.' . $fileExtension;
+
+            Storage::disk('public')->put($imageName, $imageData);
         }
+        $user->profile_image = $imageName;
+        $user->bio = $request->bio;
         $user->save();
         return response()->json(['status' => 'success', 'message' => 'Profile updated successfully']);
     }

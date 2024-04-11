@@ -59,7 +59,11 @@ const SideBar = ({ openPopUp, user }) => {
             }}
           >
             {user?.profile_image ? (
-              <img srcSet={user.profile_image} className="profile" alt="" />
+              <img
+                src={`http://127.0.0.1:8000/storage/${user.profile_image}`}
+                className="profile"
+                alt=""
+              />
             ) : (
               <img
                 className="profile"
