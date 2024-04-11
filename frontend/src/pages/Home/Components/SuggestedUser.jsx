@@ -13,7 +13,7 @@ const SuggestedUser = ({
       <div className="profile">
         {user?.profile_image ? (
           <img
-            src={`http://127.0.0.1:8000/storage/${user.profile_image}`}
+            src={`http://127.0.0.1:8000/storage/${user?.profile_image}`}
             alt=""
           />
         ) : (
@@ -29,24 +29,24 @@ const SuggestedUser = ({
         {reccommendedUsers?.map((suggestedUser, i) => (
           <div className="profile" key={i}>
             <div>
-              {suggestedUser.recommended_users.profile_image ? (
+              {suggestedUser?.recommended_users?.profile_image ? (
                 <img
-                  srcSet={suggestedUser.recommended_users.profile_image}
+                  srcSet={suggestedUser?.recommended_users?.profile_image}
                   alt=""
                 />
               ) : (
                 <img srcSet={defaultProfileImage} alt="Default Profile" />
               )}
               <div>
-                <h4>{suggestedUser.recommended_users.name}</h4>
-                <h5>{suggestedUser.recommended_users.user_name}</h5>
+                <h4>{suggestedUser?.recommended_users?.name}</h4>
+                <h5>{suggestedUser?.recommended_users?.user_name}</h5>
               </div>
             </div>
             <div className="follow">
               <button
-                onClick={() => getUserId(suggestedUser.recommended_users.id)}
+                onClick={() => getUserId(suggestedUser?.recommended_users?.id)}
               >
-                {followingIds?.includes(suggestedUser.recommended_users.id)
+                {followingIds?.includes(suggestedUser?.recommended_users?.id)
                   ? "Following"
                   : "Follow"}
               </button>

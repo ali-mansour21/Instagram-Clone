@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import logo from "../../../assets/donut.jpeg";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import defaultProfileImage from "../../../assets/empty_profile.jpeg";
 import sendAuthRequest from "../../../core/tools/authRequest";
 import { requestMethods } from "../../../core/requests/requestMethod";
+import "../Styles/index.css";
 const Post = ({ post, reloadData }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [comment, setComment] = useState({
@@ -57,17 +57,17 @@ const Post = ({ post, reloadData }) => {
     <div className="post">
       <div className="header">
         <div>
-          {post.user.profile_image ? (
+          {post?.user?.profile_image ? (
             <img
-              srcSet={`http://127.0.0.1:8000/storage/${post.user.profile_image}`}
+              srcSet={`http://127.0.0.1:8000/storage/${post?.user?.profile_image}`}
               alt=""
             />
           ) : (
             <img srcSet={defaultProfileImage} alt="Default Profile" />
           )}
           <div className="info">
-            <h3>{post.user.name}</h3>
-            <p>{calculateElapsedTime(post.created_at)}</p>
+            <h3>{post?.user?.name}</h3>
+            <p>{calculateElapsedTime(post?.created_at)}</p>
           </div>
         </div>
         <div className="dots">
@@ -76,7 +76,7 @@ const Post = ({ post, reloadData }) => {
       </div>
       <div className="post_image">
         <img
-          src={`http://127.0.0.1:8000/storage/${post.post_image}`}
+          src={`http://127.0.0.1:8000/storage/${post?.post_image}`}
           alt="post_image"
         />
       </div>
@@ -130,9 +130,9 @@ const Post = ({ post, reloadData }) => {
                 />
               </svg>
             </div>
-            <p>{post.likes?.length} likes</p>
+            <p>{post?.likes?.length} likes</p>
             <p>
-              {post.user.name}: {post.caption}
+              {post?.user?.name}: {post?.caption}
             </p>
           </div>
           <div>
@@ -153,10 +153,10 @@ const Post = ({ post, reloadData }) => {
           </div>
         </div>
         <div className="comments">
-          <p>View all {post.comments?.length} comments</p>
-          {post.comments?.map((comment, index) => (
+          <p>View all {post?.comments?.length} comments</p>
+          {post?.comments?.map((comment, index) => (
             <p key={index} className="comment">
-              <span>{comment.user.name}</span>: {comment.content}
+              <span>{comment?.user?.name}</span>: {comment?.content}
             </p>
           ))}
           <div className="input-field">

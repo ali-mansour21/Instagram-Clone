@@ -6,7 +6,7 @@ const Profile = ({ user, following, follower, posts, openPopup }) => {
     <div className="profile-container">
       {user?.profile_image ? (
         <img
-          srcSet={`http://127.0.0.1:8000/storage/${user.profile_image}`}
+          srcSet={`http://127.0.0.1:8000/storage/${user?.profile_image}`}
           alt=""
         />
       ) : (
