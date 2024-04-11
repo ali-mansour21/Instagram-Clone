@@ -14,7 +14,7 @@ class FeedController extends Controller
         $user = auth()->user();
         $followedUserId = $user->followings->pluck('id');
 
-        $posts = Post::with('user', 'comments', 'comments.user', 'likes')->whereIn('user_id', $followedUserId)->get();
+        $posts = Post::with('user', 'comments', 'comments.user', 'likes')->whereIn('user_id', $followedUserId)->orderBy('created_at', 'desc')->get();
         $followingUsers = $user->followings;
         return response()->json(['status' => 'success', 'data' => [
             'followingUsers' => $followingUsers,
@@ -23,13 +23,10 @@ class FeedController extends Controller
     }
     public function getRecommendations()
     {
-        // Get the authenticated user
         $user = auth()->user();
 
-        // Call the function to establish relationships based on the depth of 2 follower nodes
         $recommendations = $user->establishRelationshipsByDepth();
 
-        // Return a JSON response with the recommendations
         return response()->json([
             'status' => 'success',
             'data' => [

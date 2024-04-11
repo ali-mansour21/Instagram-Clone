@@ -73,7 +73,6 @@ class User extends Authenticatable implements JWTSubject
                 // Establish a relationship between the current user and the second level follower
                 // Only if they are not already following each other directly
                 if (!$this->followings()->where('following_id', $secondLevelFollower->id)->exists()) {
-                    // You can define the type of relationship or any additional logic here
                     $potentialMatches[] = [
                         'recommended_users' => $secondLevelFollower
                     ];
@@ -81,7 +80,6 @@ class User extends Authenticatable implements JWTSubject
             }
         }
 
-        // Return the potential relationships
         return $potentialMatches;
     }
     public function getJWTIdentifier()

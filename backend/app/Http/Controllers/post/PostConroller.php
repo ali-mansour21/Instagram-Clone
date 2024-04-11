@@ -12,24 +12,47 @@ class PostConroller extends Controller
 {
     public function store(Request $request)
     {
-        $user_id = auth()->id();
+
         $data = $request->validate([
             'caption' => ['required', 'string', 'max:300'],
             'post_image' => ['required'],
         ]);
 
-        $image_data = $data['post_image'];
-        $image_data = str_replace('data:image/jpeg;base64,', '', $image_data);
-        $image_data = str_replace(' ', '+', $image_data);
-        $image_data = base64_decode($image_data);
-        $image_name = Str::random(32) . ".jpg";
 
-        Storage::disk('public')->put($image_name, $image_data);
+        $imageData = $data['post_image'];
+
+
+        if (preg_match('/^data:(image\/[a-z]+);base64,/', $imageData, $matches)) {
+            $mimeType = $matches[1];
+
+
+            $imageData = str_replace($matches[0], '', $imageData);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid image data'], 400);
+        }
+
+        $imageData = str_replace(' ', '+', $imageData);
+
+        $imageData = base64_decode($imageData);
+
+
+        $extensions = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+
+        ];
+
+        $fileExtension = $extensions[$mimeType] ?? 'jpg';
+
+        $imageName = Str::random(32) . '.' . $fileExtension;
+
+        Storage::disk('public')->put($imageName, $imageData);
 
         $post = new Post();
         $post->caption = $data['caption'];
-        $post->post_image = $image_name;
-        $post->user_id = $user_id;
+        $post->post_image = $imageName;
+        $post->user_id = auth()->id();
         $post->save();
 
         return response()->json(['status' => 'success', 'message' => 'Post added successfully'], 201);
